@@ -15,6 +15,7 @@ public class ListaDoblementeEnlazada implements List<Object> {
 		Nodo anterior;
 	}
 	
+	
 	public ListaDoblementeEnlazada() {
 		tamanyo = 0;
 	}
