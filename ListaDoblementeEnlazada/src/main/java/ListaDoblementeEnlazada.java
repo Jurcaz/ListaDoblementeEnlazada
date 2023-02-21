@@ -25,8 +25,7 @@ public class ListaDoblementeEnlazada implements List<Object> {
 	}
 
 	public boolean isEmpty() {
-		return tamanyo == 0;				//igual a 	if(tamanyo == 0) return true;
-											//			return false;
+		return tamanyo == 0;				
 	}
 
 	public boolean contains(Object o) {
@@ -68,6 +67,29 @@ public class ListaDoblementeEnlazada implements List<Object> {
 		
 		return false;
 	}
+	
+	public void add(int index, Object element) {
+		if(index > this.tamanyo || index < 0) throw new IndexOutOfBoundsException();
+		
+		if(tamanyo == 0) {this.add(element);}
+		else if (index == tamanyo) {
+			Nodo nuevo = new Nodo();
+			
+			nuevo.elemento = element;
+			
+			nuevo.anterior = this.fin;
+			this.fin.siguiente = nuevo;
+			this.fin = nuevo;
+			
+			this.tamanyo++;
+		}
+		else {
+			for(int i = 0; ;i++) {
+				
+			}
+		}
+		
+	}
 
 	public boolean remove(Object o) {
 		//Nodo inicial
@@ -103,12 +125,16 @@ public class ListaDoblementeEnlazada implements List<Object> {
 	}
 
 	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
+		for(Object element: c) {
+			if(!this.contains(element)) return false;
+		}
 		return false;
 	}
 
 	public boolean addAll(Collection<? extends Object> c) {
-		// TODO Auto-generated method stub
+		for(Object element: c) {
+			this.add(element);
+		}
 		return false;
 	}
 
@@ -142,10 +168,7 @@ public class ListaDoblementeEnlazada implements List<Object> {
 		return null;
 	}
 
-	public void add(int index, Object element) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public Object remove(int index) {
 		// TODO Auto-generated method stub
