@@ -71,7 +71,7 @@ public class ListaDoblementeEnlazada implements List<Object> {
 	public void add(int index, Object element) {
 		if(index > this.tamanyo || index < 0) throw new IndexOutOfBoundsException();
 		
-		if(tamanyo == 0) {this.add(element);}
+		if(index == 0) {this.add(element);}
 		else if (index == tamanyo) {
 			Nodo nuevo = new Nodo();
 			
@@ -84,9 +84,11 @@ public class ListaDoblementeEnlazada implements List<Object> {
 			this.tamanyo++;
 		}
 		else {
-			for(int i = 0; ;i++) {
-				
-			}
+			Nodo nuevo = new Nodo();
+			nuevo.elemento = element;
+			
+			
+
 		}
 		
 	}
@@ -101,7 +103,7 @@ public class ListaDoblementeEnlazada implements List<Object> {
 		}
 		
 		//si no existe devuelve falso
-		if (n == null ) return false;
+		if (n == null) return false;
 		
 		//si el elemento es el primero
 		if(n.anterior == null) {
@@ -144,27 +146,50 @@ public class ListaDoblementeEnlazada implements List<Object> {
 	}
 
 	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
+		for (Object object : c) {
+			remove(object);
+		}
 		return false;
 	}
 
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		Nodo n = this.inicio;
+		boolean result = false;
+		
+		while(n.siguiente != null) {
+			if(!c.contains(n.elemento))		this.remove(n.elemento);
+			n = n.siguiente;
+			result = true;
+		}
+		return result;
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
+		Nodo n = this.inicio;
 		
+		while(n != null) {
+			System.out.println(this.remove(n));
+			n = n.siguiente;
+		}
+		
+		this.inicio = null;
+		this.fin = null;
+		//this.tamanyo = 0;
 	}
 
 	public Object get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if(index < 0 || index >= tamanyo) throw new IndexOutOfBoundsException();
+		
+		Nodo n = this.inicio;
+
+		for(int i = 0; i<index; i++) {
+			n = n.siguiente;
+		}
+		
+		return n.elemento;
 	}
 
 	public Object set(int index, Object element) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -203,26 +228,19 @@ public class ListaDoblementeEnlazada implements List<Object> {
 	public static void main(String[] args) {
 		ListaDoblementeEnlazada l = new ListaDoblementeEnlazada();
 		
-		Object a = new Object();
-		Object b = new Object();
-		Object c = new Object();
+		String a = "a";
+		String b = "b"; 
+		String c = "c"; 
 		
-
 		System.out.println(l.size());
 		
 		l.add(a);
-		System.out.println(l.size());
 		l.add(b);
-		System.out.println(l.size());
 		l.add(c);
+
 		System.out.println(l.size());
 		
-		l.remove(a);
-		System.out.println(l.size());
-		l.remove(b);
-		System.out.println(l.size());
-		l.remove(c);
-		System.out.println(l.size());
+		System.out.println(l.get(0));
 		
 	}
 }
